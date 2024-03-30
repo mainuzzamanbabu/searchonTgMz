@@ -1,5 +1,15 @@
+from telethon import TelegramClient, events, sync
+import asyncio
 import re
 import json
+# Your API ID and Hash
+api_id = ''
+api_hash = ''
+
+# The channel or group you want to search
+channel_id = 
+# channel_id = 
+# The search query
 
 def extract_data(text):
     data = {}
@@ -26,3 +36,21 @@ def extract_data(text):
     data["Tokens in LP"] = float(tokens_in_lp_match.group(1)) if tokens_in_lp_match else 0.0
 
     return data
+
+
+search_query = 'DhS4zHEPmqHjgJ1zJtdekDwbKUEJh9RTWDAR6d6y6fXk'
+
+client = TelegramClient('session_name', api_id, api_hash)
+client.start()
+    
+    # Searching for messages in the channel or group
+messages = client.get_messages(channel_id, search=search_query)
+    
+    # Printing the messages that match the search query
+for message in messages:
+        print(message.id, message.text)
+        data = extract_data(message.text)
+        json_data = json.dumps(data, indent=4)
+        print(json_data)
+    
+
